@@ -7,7 +7,7 @@ class Admin::SessionsController < Admin::BaseController
   def create
     @user = login(params[:email], params[:password])
     
-    if @user&.admin?
+    if @user
       redirect_to admin_root_path, success: '管理者としてログインしました'
     else
       flash.now[:danger] = 'ログインに失敗しました'

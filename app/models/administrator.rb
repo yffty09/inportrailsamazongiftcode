@@ -26,8 +26,13 @@ class Administrator < ApplicationRecord
   has_many :created_gift_codes, class_name: 'GiftCode', foreign_key: 'created_by'
   has_many :updated_gift_codes, class_name: 'GiftCode', foreign_key: 'updated_by'
 
-  validates :email, presence: true, uniqueness: true
-  validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
+  validates :email, uniqueness: true, presence: true
+  validates :password, length: { minimum: 4 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
+
+  def admin?
+    true  # 仮設置全てのAdministratorをadminとして扱う場合
+  end
+
 end
