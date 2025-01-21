@@ -5,18 +5,15 @@ class Admin::GiftCodesController < Admin::BaseController
   end
 
   def create
-    @user = User.find(params[:gift_code][:user_id])
-    service = AmazonGiftCodeService.new
-    @gift_code = @user.gift_codes.build(gift_code_params)
+    @gift_code = GiftCode.new(gift_code_params)
+    @gift_code.created_by = current_administrator.id
+    @gift_code.updated_by = current_administrator.id
+    @gift_code.status = :created
+    @gift_code.unique_url = SecureRandom.hex(16)
+    @gift_code.expires_at = 30.days.from_now
     
     if @gift_code.save
-      result = service.create_gift_code(@gift_code)
-      if result
-        redirect_to admin_gift_codes_path, success: 'ギフトコードを作成しました'
-      else
-        @gift_code.destroy
-        redirect_to admin_gift_codes_path, error: 'ギフトコードの作成に失敗しました'
-      end
+      redirect_to admin_gift_codes_path, success: 'ギフトコードを作成しました'
     else
       redirect_to admin_gift_codes_path, error: @gift_code.errors.full_messages.join(', ')
     end
@@ -25,6 +22,6 @@ class Admin::GiftCodesController < Admin::BaseController
   private
   
   def gift_code_params
-    params.require(:gift_code).permit(:amount, :currency_code, :user_id)
+    params.require(:gift_code).permit(:user_id, :amount, :currency_code)
   end
 end
