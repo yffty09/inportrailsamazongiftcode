@@ -35,14 +35,14 @@ class GiftCode < ApplicationRecord
   enum status: { created: 0, sent: 1, claimed: 2 }
 
   validates :unique_url, presence: true, uniqueness: true, length: { is: 32 }
-  validates :creation_request_id, presence: true, uniqueness: true, length: { is: 40 }
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :currency_code, presence: true, length: { is: 3 }
-  validates :gc_id, presence: true
   validates :expires_at, presence: true
 
   before_validation :generate_unique_url, on: :create
   before_validation :set_expiration, on: :create
+  before_validation :generate_creation_request_id, on: :create
+  before_validation :generate_gc_id, on: :create
 
   private
 
@@ -52,5 +52,13 @@ class GiftCode < ApplicationRecord
 
   def set_expiration
     self.expires_at = 30.days.from_now
+  end
+
+  def generate_creation_request_id
+    self.creation_request_id = SecureRandom.hex(20)
+  end
+
+  def generate_gc_id
+    self.gc_id = "GC_#{SecureRandom.hex(8)}"
   end
 end
