@@ -30,8 +30,7 @@
 #
 class GiftCode < ApplicationRecord
   belongs_to :user
-  belongs_to :creator, class_name: 'Administrator', foreign_key: 'created_by'
-  belongs_to :updater, class_name: 'Administrator', foreign_key: 'updated_by'
+  belongs_to :administrator, optional: true
 
   enum status: { created: 0, sent: 1, claimed: 2 }
 

@@ -6,8 +6,7 @@ class Admin::GiftCodesController < Admin::BaseController
 
   def create
     @gift_code = GiftCode.new(gift_code_params)
-    @gift_code.created_by = current_administrator.id
-    @gift_code.updated_by = current_administrator.id
+    @gift_code.administrator_id = current_administrator.id
     @gift_code.status = :created
     @gift_code.unique_url = SecureRandom.hex(16)
     @gift_code.expires_at = 30.days.from_now
