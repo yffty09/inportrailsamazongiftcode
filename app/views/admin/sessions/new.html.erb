@@ -6,6 +6,8 @@
         <div class="card-body">
           <h2 class="text-center mb-4">管理者ログイン</h2>
           
+          <%= render 'shared/flash_messages' %>
+          
           <%= form_with url: admin_login_path, local: true do |f| %>
             <div class="mb-3">
               <%= f.label :email, 'メールアドレス', class: 'form-label' %>

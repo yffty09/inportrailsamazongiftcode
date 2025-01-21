@@ -10,7 +10,7 @@ class Admin::SessionsController < Admin::BaseController
     if @user
       redirect_to admin_root_path, success: '管理者としてログインしました'
     else
-      flash.now[:danger] = 'ログインに失敗しました'
+      flash.now[:danger] = 'メールアドレスまたはパスワードが間違っています'
       render :new, status: :unprocessable_entity
     end
   end
