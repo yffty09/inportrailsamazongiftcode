@@ -46,6 +46,21 @@
     position: absolute;
     top: 0;
 
+/* Flash messages add */
+.flash {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.flash__message {
+  animation: appear-then-fade 4s both;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
 /* Flash messages styling */
 .alert {
   padding: 15px;
