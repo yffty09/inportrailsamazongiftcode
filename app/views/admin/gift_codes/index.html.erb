@@ -41,6 +41,8 @@
           <th>使用日時</th>
           <th>作成日時</th>
           <th>更新日時</th>
+          <th>ギフトコード発行</th>
+          <th>URL送信</th>
         </tr>
       </thead>
       <tbody id="gift-codes-table-body">
@@ -57,6 +59,12 @@
             <td><%= l gift_code.claimed_at, format: :long if gift_code.claimed_at %></td>
             <td><%= l gift_code.created_at, format: :long %></td>
             <td><%= l gift_code.updated_at, format: :long %></td>
+            <td>
+              <%= button_to '発行', '#', method: :post, class: 'btn btn-primary btn-sm', form: { data: { turbo_confirm: 'Amazonギフトコードを発行しますか？' } } %>
+            </td>
+            <td>
+              <%= button_to 'URL送信', '#', method: :post, class: 'btn btn-success btn-sm', form: { data: { turbo_confirm: '受け取りURLを送信しますか？' } } %>
+            </td>
           </tr>
         <% end %>
       </tbody>
