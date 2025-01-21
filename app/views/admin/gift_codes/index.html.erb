@@ -1,4 +1,3 @@
-
 <div class="container mt-4">
   <h1>ギフトコード一覧</h1>
 
@@ -7,17 +6,17 @@
       <h5 class="card-title">新規ギフトコード情報作成</h5>
       <div id="new_gift_code_form">
         <%= form_with model: [:admin, GiftCode.new], local: true do |f| %>
-          <div class="row g-3">
-            <div class="col-md-3">
-              <%= f.collection_select :user_id, User.all, :id, :name, { prompt: 'ユーザーを選択' }, class: 'form-select' %>
+          <div class="row align-items-center g-3">
+            <div class="col">
+              <%= f.select :user_id, User.all.collect { |u| [u.name, u.id] }, {}, class: 'form-select' %>
             </div>
-            <div class="col-md-3">
+            <div class="col">
               <%= f.number_field :amount, class: 'form-control', placeholder: '金額' %>
             </div>
-            <div class="col-md-3">
-              <%= f.select :currency_code, [['JPY', 'JPY'], ['USD', 'USD']], { prompt: '通貨を選択' }, class: 'form-select' %>
+            <div class="col">
+              <%= f.select :currency_code, [['USD', 'USD'], ['JPY', 'JPY']], {}, class: 'form-select' %>
             </div>
-            <div class="col-md-3">
+            <div class="col">
               <%= f.submit '作成', class: 'btn btn-primary' %>
             </div>
           </div>
@@ -25,7 +24,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="table-responsive">
     <table class="table">
       <thead>
