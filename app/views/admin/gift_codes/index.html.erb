@@ -32,9 +32,13 @@
         <tr>
           <th>ユーザーID</th>
           <th>ユーザー名</th>
+          <th>メールアドレス</th>
           <th>ステータス</th>
           <th>URL</th>
-          <th>リクエストID</th>
+          <th>金額</th>
+          <th>通貨</th>
+          <th>ギフトコードID</th>
+          <th>使用日時</th>
           <th>作成日時</th>
           <th>更新日時</th>
         </tr>
@@ -44,9 +48,13 @@
           <tr>
             <td><%= gift_code.user_id %></td>
             <td><%= gift_code.user.name %></td>
+            <td><%= gift_code.user.email %></td>
             <td><%= gift_code.status %></td>
             <td><%= gift_code.unique_url %></td>
-            <td><%= gift_code.creation_request_id %></td>
+            <td><%= gift_code.amount %></td>
+            <td><%= gift_code.currency_code %></td>
+            <td><%= gift_code.gc_id %></td>
+            <td><%= l gift_code.claimed_at, format: :long if gift_code.claimed_at %></td>
             <td><%= l gift_code.created_at, format: :long %></td>
             <td><%= l gift_code.updated_at, format: :long %></td>
           </tr>
