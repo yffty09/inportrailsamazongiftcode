@@ -1,71 +1,63 @@
 
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Users</h2>
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addUserModal">
-      Add User
-    </button>
-  </div>
-
-  <div class="table-responsive">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <td><%= user.name %></td>
-            <td><%= user.email %></td>
-            <td><%= user.admin? ? 'Admin' : 'User' %></td>
-            <td>
-              <button class="btn btn-sm btn-outline-primary me-2">Edit</button>
-              <%= button_to 'Delete', admin_user_path(user), method: :delete, class: 'btn btn-sm btn-danger', form: { style: 'display: inline-block' }, data: { confirm: 'Are you sure?' } %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Add User Modal -->
-  <div class="modal fade" id="addUserModal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add New User</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+<div class="container">
+  <h1>ユーザー一覧</h1>
+  
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">新規ユーザー作成</h5>
+      <%= form_with model: [:admin, @user], local: true do |f| %>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <%= f.text_field :name, class: 'form-control', placeholder: 'ユーザー名' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.email_field :email, class: 'form-control', placeholder: 'メールアドレス' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.password_field :password, class: 'form-control', placeholder: 'パスワード' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'パスワード（確認）' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.submit '作成', class: 'btn btn-primary' %>
+          </div>
         </div>
-        <div class="modal-body">
-          <%= form_with model: [:admin, User.new], local: true do |f| %>
-            <div class="mb-3">
-              <%= f.label :name, class: 'form-label' %>
-              <%= f.text_field :name, class: 'form-control' %>
-            </div>
-            <div class="mb-3">
-              <%= f.label :email, class: 'form-label' %>
-              <%= f.email_field :email, class: 'form-control' %>
-            </div>
-            <div class="mb-3">
-              <%= f.label :password, class: 'form-label' %>
-              <%= f.password_field :password, class: 'form-control' %>
-            </div>
-            <div class="mb-3">
-              <%= f.label :password_confirmation, class: 'form-label' %>
-              <%= f.password_field :password_confirmation, class: 'form-control' %>
-            </div>
-            <div class="text-end">
-              <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
-              <%= f.submit 'Add User', class: 'btn btn-primary' %>
-            </div>
-          <% end %>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ユーザー名</th>
+        <th>メールアドレス</th>
+        <th>ギフトコード発行</th>
+        <th>発行履歴</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <%= form_with model: [:admin, user, GiftCode.new] do |f| %>
+              <%= f.number_field :amount %>
+              <%= f.select :currency_code, [['USD', 'USD'], ['JPY', 'JPY']] %>
+              <%= f.submit 'ギフトコード発行', class: 'btn btn-primary' %>
+            <% end %>
+          </td>
+          <td>
+            <% user.gift_codes.each do |code| %>
+              <div>
+                <%= code.amount %> <%= code.currency_code %>
+                (<%= code.status %>)
+              </div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
