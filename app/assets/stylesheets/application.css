@@ -14,6 +14,110 @@
  *= require_self
  */
 
+/* Base styles */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 2rem;
+}
+
+/* Header styles */
+.navbar {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem 2rem;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Card styles */
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* Table styles */
+.table {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.table th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.table td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Button styles */
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+}
+
+/* Form styles */
+.form-control {
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+}
+
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.25);
+}
+
+/* Badge styles */
+.badge {
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Utilities */
+.text-muted {
+  color: #6c757d !important;
+}
+
 .post-item {
     max-width: 400px;
 }
@@ -26,7 +130,6 @@
 .pagination {
     justify-content: center;
 }
-
 
 .thumbs {
     width: 100%;
@@ -45,6 +148,8 @@
     height: 100%;
     position: absolute;
     top: 0;
+    object-fit: cover;
+}
 
 /* Flash messages add */
 .flash {
@@ -105,9 +210,6 @@
   border: 0;
   padding: 0.5rem;
   margin: -0.5rem -0.5rem -0.5rem auto;
-}
-
-    object-fit: cover;
 }
 
 .object-fit-cover {
