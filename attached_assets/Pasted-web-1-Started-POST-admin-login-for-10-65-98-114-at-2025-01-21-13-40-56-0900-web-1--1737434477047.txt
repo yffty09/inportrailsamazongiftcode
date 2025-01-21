@@ -1,0 +1,30 @@
+web-1      | Started POST "/admin/login" for 10.65.98.114 at 2025-01-21 13:40:56 +0900
+web-1      | Cannot render console from 10.65.98.114! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+web-1      | Processing by Admin::SessionsController#create as HTML
+web-1      |   Parameters: {"authenticity_token"=>"[FILTERED]", "email"=>"mt.fuji1009@gmail.com", "password"=>"[FILTERED]", "commit"=>"ログイン"}
+web-1      |   Administrator Load (0.9ms)  SELECT `administrators`.* FROM `administrators` WHERE `administrators`.`email` = 'mt.fuji1009@gmail.com' LIMIT 1
+web-1      |   ↳ app/models/administrator.rb:28:in `authenticate'
+web-1      | Redirected to http://10.65.1.185:3001/admin
+web-1      | Completed 302 Found in 120ms (ActiveRecord: 0.9ms | Allocations: 1268)
+web-1      | 
+web-1      | 
+web-1      | Started GET "/admin" for 10.65.98.114 at 2025-01-21 13:40:56 +0900
+web-1      | Cannot render console from 10.65.98.114! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+web-1      | Processing by Admin::GiftCodesController#index as HTML
+web-1      |   Administrator Load (0.4ms)  SELECT `administrators`.* FROM `administrators` WHERE `administrators`.`id` = 1 LIMIT 1
+web-1      | Redirected to http://10.65.1.185:3001/admin/login
+web-1      | Filter chain halted as :check_admin rendered or redirected
+web-1      | Completed 302 Found in 4ms (ActiveRecord: 0.4ms | Allocations: 1630)
+web-1      | 
+web-1      | 
+web-1      | Started GET "/admin/login" for 10.65.98.114 at 2025-01-21 13:40:56 +0900
+web-1      | Cannot render console from 10.65.98.114! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+web-1      | Processing by Admin::SessionsController#new as HTML
+web-1      |   Rendering layout layouts/admin.html.erb
+web-1      |   Rendering admin/sessions/new.html.erb within layouts/admin
+web-1      |   Rendered shared/_flash_messages.html.erb (Duration: 0.6ms | Allocations: 235)
+web-1      |   Rendered admin/sessions/new.html.erb within layouts/admin (Duration: 3.9ms | Allocations: 2338)
+web-1      |   Rendered layout layouts/admin.html.erb (Duration: 6.5ms | Allocations: 3278)
+web-1      | Completed 200 OK in 10ms (Views: 7.8ms | ActiveRecord: 0.0ms | Allocations: 3842)
+web-1      | 
+web-1      | 
