@@ -23,6 +23,15 @@
 class Administrator < ApplicationRecord
   authenticates_with_sorcery!
   has_many :admin_sessions, dependent: :destroy
+
+  def self.authenticate(email, password)
+    user = find_by(email: email)
+    user if user&.valid_password?(password)
+  end
+
+  def valid_password?(password)
+    BCrypt::Password.new(crypted_password) == "#{password}#{salt}"
+  end
   has_many :created_gift_codes, class_name: 'GiftCode', foreign_key: 'created_by'
   has_many :updated_gift_codes, class_name: 'GiftCode', foreign_key: 'updated_by'
 

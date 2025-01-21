@@ -5,9 +5,8 @@ class Admin::SessionsController < Admin::BaseController
   def new; end
 
   def create
-    @user = login(params[:email], params[:password])
-    
-    if @user
+    if @user = Administrator.authenticate(params[:email], params[:password])
+      auto_login(@user)
       redirect_to admin_root_path, success: '管理者としてログインしました'
     else
       flash.now[:alert] = "メールアドレスまたはパスワードが正しくありません"
