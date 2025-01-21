@@ -1,5 +1,32 @@
+
 <div class="container">
   <h1>ユーザー一覧</h1>
+  
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">新規ユーザー作成</h5>
+      <%= form_with model: [:admin, @user], local: true do |f| %>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <%= f.text_field :name, class: 'form-control', placeholder: 'ユーザー名' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.email_field :email, class: 'form-control', placeholder: 'メールアドレス' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.password_field :password, class: 'form-control', placeholder: 'パスワード' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'パスワード（確認）' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.submit '作成', class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <table class="table">
     <thead>
       <tr>
@@ -12,7 +39,7 @@
     <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td><%= user.username %></td>
+          <td><%= user.name %></td>
           <td><%= user.email %></td>
           <td>
             <%= form_with model: [:admin, user, GiftCode.new] do |f| %>
