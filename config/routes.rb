@@ -6,11 +6,8 @@ Rails.application.routes.draw do
     post 'login', to: 'sessions#create'
     delete 'logout', to: 'sessions#destroy'
     
-    resources :users, only: [:create] do
-      resources :gift_codes, only: [:create]
-    end
-    
-    root 'users#index'
+    resources :gift_codes, only: [:index, :create]
+    root 'gift_codes#index'
   end
 
   resources :gift_codes, only: [:index, :create]
