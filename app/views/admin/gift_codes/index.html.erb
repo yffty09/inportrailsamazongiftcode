@@ -1,6 +1,31 @@
 
 <div class="container mt-4">
   <h1>ギフトコード一覧</h1>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">新規ユーザー作成</h5>
+      <%= form_with model: [:admin, User.new], local: true do |f| %>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <%= f.text_field :name, class: 'form-control', placeholder: 'ユーザー名' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.email_field :email, class: 'form-control', placeholder: 'メールアドレス' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.password_field :password, class: 'form-control', placeholder: 'パスワード' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'パスワード（確認）' %>
+          </div>
+          <div class="col-md-4">
+            <%= f.submit '作成', class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
   
   <div class="table-responsive">
     <table class="table">
