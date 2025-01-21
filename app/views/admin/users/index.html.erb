@@ -1,63 +1,91 @@
 
-<div class="container">
-  <h1>ユーザー一覧</h1>
+<div class="container mt-4">
+  <h1 class="mb-4">ユーザー一覧</h1>
   
   <div class="card mb-4">
     <div class="card-body">
       <h5 class="card-title">新規ユーザー作成</h5>
-      <%= form_with model: [:admin, @user] do |f| %>
-        <div class="row g-3">
-          <div class="col-md-4">
-            <%= f.text_field :name, class: 'form-control', placeholder: 'ユーザー名' %>
-          </div>
-          <div class="col-md-4">
-            <%= f.email_field :email, class: 'form-control', placeholder: 'メールアドレス' %>
-          </div>
-          <div class="col-md-4">
-            <%= f.password_field :password, class: 'form-control', placeholder: 'パスワード' %>
-          </div>
-          <div class="col-md-4">
-            <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'パスワード（確認）' %>
-          </div>
-          <div class="col-md-4">
-            <%= f.submit '作成', class: 'btn btn-primary' %>
-          </div>
+      <%= form_with model: [:admin, @user], class: 'row g-3' do |f| %>
+        <div class="col-md-3">
+          <%= f.text_field :name, class: 'form-control', placeholder: 'ユーザー名' %>
+        </div>
+        <div class="col-md-3">
+          <%= f.email_field :email, class: 'form-control', placeholder: 'メールアドレス' %>
+        </div>
+        <div class="col-md-3">
+          <%= f.password_field :password, class: 'form-control', placeholder: 'パスワード' %>
+        </div>
+        <div class="col-md-3">
+          <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'パスワード（確認）' %>
+        </div>
+        <div class="col-12">
+          <%= f.submit '作成', class: 'btn btn-primary' %>
         </div>
       <% end %>
     </div>
   </div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ユーザー名</th>
-        <th>メールアドレス</th>
-        <th>ギフトコード発行</th>
-        <th>発行履歴</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-light">
         <tr>
-          <td><%= user.name %></td>
-          <td><%= user.email %></td>
-          <td>
-            <%= form_with model: [:admin, user, GiftCode.new] do |f| %>
-              <%= f.number_field :amount %>
-              <%= f.select :currency_code, [['USD', 'USD'], ['JPY', 'JPY']] %>
-              <%= f.submit 'ギフトコード発行', class: 'btn btn-primary' %>
-            <% end %>
-          </td>
-          <td>
-            <% user.gift_codes.each do |code| %>
-              <div>
-                <%= code.amount %> <%= code.currency_code %>
-                (<%= code.status %>)
-              </div>
-            <% end %>
-          </td>
+          <th>ID</th>
+          <th>ユーザー名</th>
+          <th>メールアドレス</th>
+          <th>ギフトコード発行</th>
+          <th>ギフトコード情報</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td>
+              <%= form_with model: [:admin, user, GiftCode.new], class: 'row g-2 align-items-center' do |f| %>
+                <div class="col-auto">
+                  <%= f.number_field :amount, class: 'form-control form-control-sm' %>
+                </div>
+                <div class="col-auto">
+                  <%= f.select :currency_code, [['USD', 'USD'], ['JPY', 'JPY']], {}, class: 'form-select form-select-sm' %>
+                </div>
+                <div class="col-auto">
+                  <%= f.submit 'ギフトコード発行', class: 'btn btn-primary btn-sm' %>
+                </div>
+              <% end %>
+            </td>
+            <td>
+              <% if user.gift_codes.any? %>
+                <table class="table table-sm table-bordered mb-0">
+                  <thead>
+                    <tr>
+                      <th>ステータス</th>
+                      <th>Unique URL</th>
+                      <th>Request ID</th>
+                      <th>作成日時</th>
+                      <th>更新日時</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% user.gift_codes.each do |code| %>
+                      <tr>
+                        <td><span class="badge bg-<%= code.status == 'claimed' ? 'success' : 'primary' %>"><%= code.status %></span></td>
+                        <td><small><%= code.unique_url %></small></td>
+                        <td><small><%= code.creation_request_id %></small></td>
+                        <td><small><%= code.created_at.strftime('%Y/%m/%d %H:%M') %></small></td>
+                        <td><small><%= code.updated_at.strftime('%Y/%m/%d %H:%M') %></small></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              <% else %>
+                <p class="text-muted mb-0">ギフトコードはまだ発行されていません</p>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
