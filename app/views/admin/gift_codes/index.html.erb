@@ -5,7 +5,8 @@
   <div class="card mb-4">
     <div class="card-body">
       <h5 class="card-title">新規ユーザー作成</h5>
-      <%= form_with model: [:admin, User.new], local: true do |f| %>
+      <div id="new_user_form">
+        <%= form_with model: [:admin, User.new], local: false do |f| %>
         <div class="row g-3">
           <div class="col-md-4">
             <%= f.text_field :name, class: 'form-control', placeholder: 'ユーザー名' %>
@@ -38,7 +39,7 @@
           <th>作成日時</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="users-table-body">
         <% @gift_codes.each do |gift_code| %>
           <tr>
             <td><%= gift_code.user.username %></td>
