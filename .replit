@@ -1,0 +1,8 @@
+modules = ["ruby-3.2", "web", "nodejs-20"]
+run = "bundle exec rails server --binding=0.0.0.0"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "bundle exec rails server --binding=0.0.0.0"]

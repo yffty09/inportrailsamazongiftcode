@@ -1,0 +1,29 @@
+
+<div class="container mt-4">
+  <h1>ギフトコード一覧</h1>
+  
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ユーザー</th>
+          <th>金額</th>
+          <th>通貨</th>
+          <th>ステータス</th>
+          <th>作成日時</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @gift_codes.each do |gift_code| %>
+          <tr>
+            <td><%= gift_code.user.username %></td>
+            <td><%= gift_code.amount %></td>
+            <td><%= gift_code.currency_code %></td>
+            <td><%= gift_code.status %></td>
+            <td><%= l gift_code.created_at, format: :long %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

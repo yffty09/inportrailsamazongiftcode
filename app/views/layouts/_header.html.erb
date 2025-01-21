@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <%= link_to root_path, class: 'navbar-brand' do %>
+      <%= image_tag 'logo.png', height: 30 %>
+    <% end %>
+    
+    <div class="d-flex">
+      <% unless logged_in? %>
+        <%= link_to 'ログイン', login_path, class: 'btn btn-link px-3 me-2' %>
+        <%= link_to 'サインアップ', signup_path, class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</nav>
