@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_21_000006) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_22_065700) do
   create_table "admin_sessions", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "administrator_id", null: false
     t.string "session_token", null: false
@@ -54,6 +54,15 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_21_000006) do
     t.index ["creation_request_id"], name: "index_gift_codes_on_creation_request_id", unique: true
     t.index ["unique_url"], name: "index_gift_codes_on_unique_url", unique: true
     t.index ["user_id"], name: "index_gift_codes_on_user_id"
+  end
+
+  create_table "sessions", charset: "utf8mb4", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

@@ -566,5 +566,5 @@ Rails.application.config.sorcery.configure do |config|
   config.user_class = "Administrator"
   
   # Use session store for auth
-  config.session_store = :active_record_store
+  # config.session_store = :active_record_store
 end
